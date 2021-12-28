@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Restorant.Models.Product>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Image)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price) $
+            </td>
+            <td>
+                @if (item.Image == null)
+                {
+                    <img src="#" />
+                }
+                else
+                {
+                    <img height="200" width="200" src="data:image/png;base64,@Convert.ToBase64String(item.Image)">
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.Name)
+            </td>
+            <td>
+                <ul style="list-style: none;" class="col-lg-12 col-md-12 col-sm-12">
+                    <li>
+                        <a asp-action="Edit" class="col-lg-12 col-md-12 col-sm-12 btn btn-outline-primary font-weight-bold border-width-2" asp-route-id="@item.ProductID">Edit</a>
+                    </li>
+                    <br />
+                    <li>
+                        <a asp-action="Details" class="col-lg-12 col-md-12 col-sm-12 btn btn-outline-primary font-weight-bold border-width-2" asp-route-id="@item.ProductID">Details</a>
+                    </li> 
+                    <br />
+                    <li> <a asp-action="Delete" class="col-lg-12 col-md-12 col-sm-12 btn btn-outline-danger font-weight-bold border-width-2" asp-route-id="@item.ProductID">Delete</a>
+                    </li>
+                </ul>                
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
